@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 namespace BlackStarSwissAudio.Core;
 
 /// <summary>Immutable interleaved float PCM. Because buffers are never mutated, undo history is just references.</summary>
