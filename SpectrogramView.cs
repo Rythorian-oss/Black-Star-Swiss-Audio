@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
