@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 using System.Collections.Concurrent;
 using System.IO;
 using BlackStarSwissAudio.Services;
