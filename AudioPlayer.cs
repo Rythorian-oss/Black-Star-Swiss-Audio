@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 using BlackStarSwissAudio.Core;
 using NAudio.Wave;
 
