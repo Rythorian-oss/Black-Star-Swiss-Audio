@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 namespace BlackStarSwissAudio.Core;
 
 public sealed record SpectrogramColumn(int Sequence, byte[] Pixels);
