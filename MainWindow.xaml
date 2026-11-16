@@ -1,3 +1,4 @@
+<!-- Created by: Justin L. Ross | Waterville, Me. | Nov. 2026 -->
 <Window x:Class="BlackStarSwissAudio.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
