@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A professional application overview and detailed feature presentation for Black Star Swiss Audio.">
+  <title>Black Star Swiss Audio — Application Presentation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #edf0f2;
+      --muted: #9aa8b2;
+      --gold: #d7b765;
+      --gold-bright: #f0d48a;
+      --teal: #73d5c6;
+      --red: #d16b70;
+      --panel: #151c23;
+      --panel-2: #1b242c;
+      --line: #35434d;
+      --deep: #0a0f14;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { background: #070b0f; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: #070b0f; font-family: var(--sans); }
+    .toolbar {
+      position: sticky; top: 0; z-index: 5; display: flex; justify-content: center; align-items: center;
+      gap: 12px; padding: 10px 16px; background: rgba(8, 12, 16, .94); border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px); font-size: 13px; color: var(--muted);
+    }
+    .toolbar button {
+      border: 1px solid #b99c50; border-radius: 4px; padding: 9px 16px; color: #14130f;
+      background: var(--gold-bright); font-weight: 700; cursor: pointer;
+    }
+    .toolbar button:hover { background: #f7e4ad; }
+    .deck { padding: 28px 0 42px; }
+    .slide {
+      position: relative; display: flex; flex-direction: column; width: min(1280px, calc(100vw - 40px));
+      aspect-ratio: 16 / 9; margin: 0 auto 28px; padding: 58px 70px 48px; overflow: hidden;
+      background: radial-gradient(ellipse at 92% 6%, rgba(73, 132, 130, .14), transparent 34%),
+                  linear-gradient(145deg, #121920 0%, #0e141a 66%, #11181e 100%);
+      border: 1px solid #27333b; box-shadow: 0 18px 55px rgba(0,0,0,.42);
+      page-break-after: always; break-after: page;
+    }
+    .slide:last-child { page-break-after: auto; break-after: auto; }
+    .slide::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: linear-gradient(var(--gold), var(--teal)); opacity: .8; }
+    .slide.cover { justify-content: center; padding: 78px 92px; background:
+      radial-gradient(ellipse at 76% 34%, rgba(86, 164, 157, .20), transparent 35%),
+      radial-gradient(ellipse at 15% 92%, rgba(203, 164, 77, .12), transparent 38%),
+      linear-gradient(135deg, #0b1015, #171f25 58%, #10161b); }
+    .slide.cover::before { width: 8px; }
+    .eyebrow { margin: 0 0 14px; color: var(--teal); font-size: 12px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { font-family: var(--serif); font-weight: 400; }
+    h1 { max-width: 760px; margin-bottom: 18px; font-size: clamp(42px, 5vw, 72px); line-height: 1.03; letter-spacing: -.025em; }
+    h2 { margin: 0 0 10px; font-size: clamp(29px, 3vw, 42px); line-height: 1.08; }
+    h3 { margin: 0 0 9px; color: var(--gold-bright); font-size: 15px; letter-spacing: .015em; }
+    p, li { color: #d1d8dc; font-size: 14px; line-height: 1.48; }
+    p { margin-bottom: 10px; }
+    ul, ol { margin: 5px 0 0; padding-left: 20px; }
+    li { margin: 0 0 5px; }
+    strong { color: #fff; }
+    .subtitle { max-width: 700px; margin: 0; color: #bdc8ce; font-size: 19px; line-height: 1.5; }
+    .cover-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 30px; }
+    .pill { display: inline-flex; align-items: center; border: 1px solid #52616a; border-radius: 99px; padding: 6px 11px; color: #dce5e8; font-size: 11px; letter-spacing: .04em; }
+    .brand { display: flex; align-items: center; gap: 13px; margin-bottom: 44px; color: var(--gold-bright); font-size: 13px; font-weight: 700; letter-spacing: .19em; }
+    .brand-mark { width: 39px; height: 39px; border: 1px solid #b69a52; border-radius: 50%; display: grid; place-items: center; color: var(--teal); font-family: var(--serif); font-size: 20px; }
+    .cover-art { position: absolute; right: 7%; bottom: 11%; width: 36%; height: auto; opacity: .9; }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 23px; }
+    .section-head p { max-width: 385px; margin: 4px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
+    .rule { width: 64px; height: 2px; margin: 13px 0 0; background: linear-gradient(90deg, var(--gold), var(--teal)); }
+    .content { flex: 1; min-height: 0; }
+    .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 13px; padding-top: 10px; border-top: 1px solid rgba(133, 153, 165, .24); color: #80909a; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .grid-2, .grid-3, .grid-4 { display: grid; gap: 13px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card { min-width: 0; padding: 16px 17px; border: 1px solid var(--line); border-radius: 6px; background: linear-gradient(145deg, rgba(28,38,46,.92), rgba(17,24,30,.94)); }
+    .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+    .card p, .card li { font-size: 12px; line-height: 1.45; }
+    .card li { margin-bottom: 4px; }
+    .stat { min-height: 112px; }
+    .stat b { display: block; margin-bottom: 6px; color: var(--gold-bright); font-family: var(--serif); font-size: 31px; font-weight: 400; }
+    .stat span { color: #c2cdd2; font-size: 11px; line-height: 1.4; }
+    .callout { padding: 12px 15px; border-left: 3px solid var(--teal); background: rgba(115, 213, 198, .08); color: #dbe5e8; font-size: 12px; line-height: 1.5; }
+    .callout.warn { border-color: var(--gold); background: rgba(215,183,101,.08); }
+    .callout.danger { border-color: var(--red); background: rgba(209,107,112,.08); }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); align-items: stretch; gap: 16px; margin: 26px 0; }
+    .flow-step { position: relative; min-height: 120px; padding: 18px 13px; border: 1px solid #3b4b54; border-radius: 5px; background: var(--panel); text-align: center; }
+    .flow-step:not(:last-child)::after { content: "→"; position: absolute; top: 42%; right: -17px; color: var(--teal); font-size: 20px; }
+    .flow-step b { display: block; margin-bottom: 9px; color: var(--gold-bright); font-family: var(--serif); font-size: 18px; font-weight: 400; }
+    .flow-step span { color: #b7c3ca; font-size: 11px; line-height: 1.4; }
+    .workspace { display: grid; grid-template-columns: .78fr 1.5fr .95fr; gap: 11px; height: 375px; padding: 15px; border: 1px solid #44545d; border-radius: 8px; background: #0a1015; }
+    .mock-panel { padding: 13px; border: 1px solid #35434b; border-radius: 4px; background: #151c22; }
+    .mock-title { margin-bottom: 12px; color: var(--gold-bright); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+    .mock-item { margin: 7px 0; padding: 8px 9px; border: 1px solid #303d45; border-radius: 3px; color: #c3ccd1; font-size: 10px; }
+    .mock-track { position: relative; height: 48px; margin: 14px 0; border: 1px solid #384950; border-radius: 3px; background: linear-gradient(90deg, rgba(215,183,101,.16), rgba(115,213,198,.1)); }
+    .mock-track::after { content: ""; position: absolute; left: 12%; right: 18%; top: 50%; height: 1px; background: repeating-linear-gradient(90deg, #78cbbd 0 3px, transparent 3px 6px); box-shadow: 0 -7px #b98f54, 0 7px #b98f54; opacity: .8; }
+    .mock-slider { height: 4px; margin: 10px 0; border-radius: 4px; background: linear-gradient(90deg, var(--teal) 52%, #35434b 52%); }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th { padding: 8px 9px; border-bottom: 1px solid #65727a; color: var(--teal); font-size: 10px; letter-spacing: .1em; text-align: left; text-transform: uppercase; }
+    .table td { padding: 7px 9px; border-bottom: 1px solid rgba(133,153,165,.18); color: #ccd4d8; font-size: 11px; line-height: 1.35; vertical-align: top; }
+    .table td:first-child { color: #f0d48a; font-weight: 600; }
+    .table tr:last-child td { border-bottom: 0; }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 15px; }
+    .tool { padding: 8px 10px; border-left: 2px solid #527f7a; background: rgba(24,34,40,.76); }
+    .tool b { display: block; margin-bottom: 3px; color: var(--gold-bright); font-size: 11px; }
+    .tool span { display: block; color: #bac6cc; font-size: 10px; line-height: 1.35; }
+    .small { color: var(--muted); font-size: 10px; line-height: 1.45; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .list-check { list-style: none; padding: 0; }
+    .list-check li { position: relative; padding-left: 22px; }
+    .list-check li::before { content: "✓"; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .list-dot { list-style: none; padding: 0; }
+    .list-dot li { position: relative; padding-left: 17px; }
+    .list-dot li::before { content: "•"; position: absolute; left: 1px; color: var(--gold); font-size: 18px; line-height: 1; }
+    .spectrum { width: 100%; height: 135px; margin: 8px 0 0; border: 1px solid #38464d; border-radius: 4px; background: #0a1015; }
+    .endline { margin-top: auto; padding-top: 13px; border-top: 1px solid rgba(133,153,165,.24); color: #9aa8b2; font-size: 10px; }
+    @media (max-width: 760px) {
+      .slide { width: calc(100vw - 20px); aspect-ratio: auto; min-height: 85vh; padding: 36px 26px 30px; }
+      .grid-3, .grid-4, .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .workspace { height: auto; grid-template-columns: 1fr; }
+      .mock-panel { min-height: 130px; }
+      .flow { grid-template-columns: 1fr; gap: 8px; }
+      .flow-step { min-height: 0; }
+      .flow-step:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -17px; z-index: 1; }
+      .section-head { display: block; }
+      .section-head p { text-align: left; }
+      .cover-art { position: static; width: 90%; margin: 30px auto 0; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @page { size: 13.333in 7.5in; margin: 0; }
+    @media print {
+      :root { color-scheme: dark; }
+      html, body { width: 13.333in; margin: 0; background: #0e141a !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .toolbar { display: none !important; }
+      .deck { padding: 0; }
+      .slide {
+        width: 13.333in; height: 7.5in; min-height: 0; aspect-ratio: auto; margin: 0; padding: .52in .72in .38in;
+        overflow: hidden; border: 0; box-shadow: none; page-break-after: always; break-after: page;
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+      }
+      .slide:last-child { page-break-after: auto; break-after: auto; }
+      .slide.cover { padding: .7in .85in; }
+      h2 { font-size: 29pt; }
+      p, li { font-size: 10pt; }
+      .card p, .card li { font-size: 8.5pt; }
+      .table td { font-size: 8pt; padding: 5px 7px; }
+      .table th { font-size: 7.5pt; padding: 6px 7px; }
+      .tool b { font-size: 8.2pt; }
+      .tool span { font-size: 7.3pt; }
+      .tool { padding: 6px 8px; }
+      .footer { margin-top: 8px; padding-top: 6px; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" role="toolbar" aria-label="Presentation controls">
+    <span>PDF-ready presentation · landscape 16:9</span>
+    <button type="button" onclick="window.print()" aria-label="Print or save presentation as PDF">Print / Save as PDF</button>
+    <span>In the print dialog, choose “Save as PDF” and enable background graphics.</span>
+  </div>
+  <main class="deck">
+    <section class="slide cover" aria-label="Title slide">
+      <div class="brand"><span class="brand-mark">BS</span><span>BLACK STAR&nbsp; / &nbsp;SWISS AUDIO</span></div>
+      <p class="eyebrow">Application presentation · Windows desktop studio</p>
+      <h1>Shape sound.<br>Build the mix.</h1>
+      <p class="subtitle">A focused multitrack audio workspace for importing, arranging, editing, recording, mixing, and exporting audio—with a live spectrogram that visualizes the signal as it is heard.</p>
+      <div class="cover-meta"><span class="pill">MULTITRACK EDITING</span><span class="pill">35 AUDIO TOOLS</span><span class="pill">LIVE-FEED SPECTROGRAM</span><span class="pill">WINDOWS 10/11 · .NET 10</span></div>
+      <p style="margin:20px 0 0;color:#9aa8b2;font-size:12px;letter-spacing:.08em">Created by <strong style="color:#f0d48a">Justin L. Ross</strong></p>
+      <svg class="cover-art" viewBox="0 0 540 190" role="img" aria-label="Abstract live audio spectrum in gold and teal">
+        <defs><linearGradient id="wave" x1="0" x2="1"><stop offset="0" stop-color="#d7b765"/><stop offset=".52" stop-color="#73d5c6"/><stop offset="1" stop-color="#d7b765"/></linearGradient></defs>
+        <path d="M0 95H540" stroke="#52616a" stroke-width="1" opacity=".55"/>
+        <g fill="url(#wave)" opacity=".86">
+          <rect x="12" y="78" width="5" height="34" rx="2"/><rect x="28" y="58" width="5" height="74" rx="2"/><rect x="44" y="70" width="5" height="50" rx="2"/><rect x="60" y="34" width="5" height="122" rx="2"/><rect x="76" y="48" width="5" height="94" rx="2"/><rect x="92" y="68" width="5" height="54" rx="2"/><rect x="108" y="23" width="5" height="144" rx="2"/><rect x="124" y="52" width="5" height="86" rx="2"/><rect x="140" y="61" width="5" height="68" rx="2"/><rect x="156" y="38" width="5" height="114" rx="2"/><rect x="172" y="62" width="5" height="66" rx="2"/><rect x="188" y="16" width="5" height="158" rx="2"/><rect x="204" y="45" width="5" height="100" rx="2"/><rect x="220" y="56" width="5" height="78" rx="2"/><rect x="236" y="32" width="5" height="126" rx="2"/><rect x="252" y="54" width="5" height="82" rx="2"/><rect x="268" y="13" width="5" height="164" rx="2"/><rect x="284" y="40" width="5" height="110" rx="2"/><rect x="300" y="60" width="5" height="70" rx="2"/><rect x="316" y="27" width="5" height="136" rx="2"/><rect x="332" y="48" width="5" height="94" rx="2"/><rect x="348" y="19" width="5" height="152" rx="2"/><rect x="364" y="55" width="5" height="80" rx="2"/><rect x="380" y="38" width="5" height="114" rx="2"/><rect x="396" y="63" width="5" height="64" rx="2"/><rect x="412" y="28" width="5" height="134" rx="2"/><rect x="428" y="49" width="5" height="92" rx="2"/><rect x="444" y="69" width="5" height="52" rx="2"/><rect x="460" y="40" width="5" height="110" rx="2"/><rect x="476" y="61" width="5" height="68" rx="2"/><rect x="492" y="51" width="5" height="88" rx="2"/><rect x="508" y="73" width="5" height="44" rx="2"/><rect x="524" y="83" width="5" height="24" rx="2"/>
+        </g>
+      </svg>
+      <div class="footer"><span>Product overview &amp; capability guide</span><span>01 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">01 · Product at a glance</p><h2>A complete creative loop</h2><div class="rule"></div></div><p>Designed to move from source media to a finished mix without losing sight of the signal, the arrangement, or the project.</p></header>
+      <div class="content">
+        <div class="grid-4">
+          <div class="card stat"><b>35</b><span>Built-in audio tools, from restorative edits to creative processing.</span></div>
+          <div class="card stat"><b>100</b><span>Procedural sound effects, organized into themed categories.</span></div>
+          <div class="card stat"><b>Live</b><span>Spectrogram columns are generated from playback or microphone samples—not a prebuilt clip image.</span></div>
+          <div class="card stat"><b>.bssa</b><span>Project archives embed track audio alongside core mixer and arrangement settings.</span></div>
+        </div>
+        <div class="flow">
+          <div class="flow-step"><b>Bring in</b><span>Import files, drop media, record, or add FX.</span></div>
+          <div class="flow-step"><b>Arrange</b><span>Set track start time, gain, pan, mute, and solo.</span></div>
+          <div class="flow-step"><b>Shape</b><span>Trim, process, preview, undo, and refine audio.</span></div>
+          <div class="flow-step"><b>Listen</b><span>Play, loop, inspect waveforms, meters, and live spectrum.</span></div>
+          <div class="flow-step"><b>Deliver</b><span>Save a project, bounce a mix, or export audio/video.</span></div>
+        </div>
+        <div class="callout">The application combines a multitrack timeline, destructive audio processing with undo, real-time playback/recording visualization, and practical project and delivery tools in a Windows desktop interface.</div>
+      </div>
+      <div class="footer"><span>Black Star Swiss Audio · Application presentation</span><span>02 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">02 · The studio workspace</p><h2>Three focused work areas</h2><div class="rule"></div></div><p>A dark lacquer-inspired interface with gold accents and clear separation between processing, arrangement, and sound selection.</p></header>
+      <div class="content">
+        <div class="workspace" role="img" aria-label="Diagram of tools panel, central multitrack timeline, and parameter and FX panel">
+          <div class="mock-panel"><div class="mock-title">TOOLS · 35 OPERATIONS</div><div class="mock-item">Cut · Merge · Fade</div><div class="mock-item">EQ · Dynamics</div><div class="mock-item">Modulation · Stereo</div><div class="mock-item">Select or drag to a track</div></div>
+          <div class="mock-panel"><div class="mock-title">TIMELINE · ARRANGE &amp; MONITOR</div><div class="mock-item">Ruler · Zoom · Scroll · Fit</div><div class="mock-track"></div><div class="mock-track" style="margin-left:13%;background:linear-gradient(90deg,rgba(115,213,198,.13),rgba(215,183,101,.14))"></div><div class="mock-item">Live spectrogram · stereo waveforms · playhead</div></div>
+          <div class="mock-panel"><div class="mock-title">PARAMETERS · FX LIBRARY</div><div class="mock-item">Tool parameters · preview · apply</div><div class="mock-slider"></div><div class="mock-item">Selection · trim · loop · speed</div><div class="mock-item">Categories · local audio · online sources</div></div>
+        </div>
+        <div class="grid-3" style="margin-top:14px">
+          <div class="card"><h3>Tools panel</h3><p>Browse editing and sound-processing operations. Select a tool, tune its available controls, then preview or apply it. Drag-and-drop onto a track is also supported.</p></div>
+          <div class="card"><h3>Timeline</h3><p>Inspect track waveforms and the live spectrogram, navigate with zoom and scroll, and control playback. Vertical splitters and panel toggles adapt the workspace.</p></div>
+          <div class="card"><h3>Parameters &amp; FX</h3><p>Set effect values, speed presets, MP3 quality, time selection, and loop bounds; manage categories, choose a sound, and access local or online FX.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>Workspace overview</span><span>03 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">03 · Import &amp; arrange</p><h2>Build a multitrack session</h2><div class="rule"></div></div><p>Open media through the Import or Open dialog, or drop files directly into the application window.</p></header>
+      <div class="content grid-2">
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>Audio and video sources</h3><p>Each imported file becomes a track. For video, the audio stream is extracted for editing and playback, while the source video path is retained for a later video export.</p><p>Batch imports proceed file by file. A failed file is reported while the rest of the batch can continue; Cancel stops the cancellable operation.</p></div>
+          <div class="card"><h3>Position tracks in time</h3><p>Use the per-track <strong>Start s</strong> value to place a clip relative to project start. Tracks are added in import order. Project duration follows the end of the latest track.</p><p class="small">There is no dedicated clip-drag positioning or track-reordering gesture; use the offset field.</p></div>
+        </div>
+        <div>
+          <table class="table" aria-label="Track controls">
+            <thead><tr><th>Track control</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td>Gain</td><td>Adjusts mix level from −30 dB to +12 dB without rendering into the source audio.</td></tr>
+              <tr><td>Pan</td><td>Places the track in the stereo mix: left, center, or right.</td></tr>
+              <tr><td>Mute / Solo</td><td>Mute excludes a track; when any track is soloed, only soloed tracks are mixed.</td></tr>
+              <tr><td>Start time</td><td>Offsets the track in seconds from the beginning of the project.</td></tr>
+              <tr><td>Peak / RMS</td><td>Shows approximate track level; a CLIP indicator appears when the estimate exceeds full scale.</td></tr>
+              <tr><td>Track actions</td><td>Select, remove, edit, and inspect clip duration, sample rate, and channel count.</td></tr>
+            </tbody>
+          </table>
+          <div class="callout warn" style="margin-top:14px">Gain, pan, mute, and solo are mixer settings. The Gain audio tool, by contrast, renders a change into the track audio.</div>
+        </div>
+      </div>
+      <div class="footer"><span>Source handling &amp; track mixer</span><span>04 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">04 · Timeline &amp; transport</p><h2>Navigate, audition, refine</h2><div class="rule"></div></div><p>Transport and timeline controls make it easy to inspect a session, repeat a passage, and focus an edit.</p></header>
+      <div class="content">
+        <div class="grid-3">
+          <div class="card"><h3>Transport</h3><p>Record, Play, Pause, Stop, seek with the position slider, and monitor current time. Space starts or resumes playback. Long cancellable operations expose Cancel; Escape is the cancel shortcut.</p></div>
+          <div class="card"><h3>Timeline navigation</h3><p>Zoom from 1× to 16×, pan horizontally with Scroll, and use Fit to show the full project. Ruler tick spacing adapts to the visible range; the playhead and progress overlay track playback.</p></div>
+          <div class="card"><h3>Selection &amp; trim</h3><p>Enter selection start/end times in seconds. Optional 0.1-second snapping rounds the boundaries. Trim keeps the selected range on the current track.</p></div>
+          <div class="card"><h3>Looping</h3><p>Set Loop start and end in seconds and enable Loop. The end must follow the start; disable Loop to stop repeating the selected interval.</p></div>
+          <div class="card"><h3>Speed edit</h3><p>Apply a preset from 0.5× to 4× to the selected track. This renders a resampling edit, changing both duration and pitch—it is not a real-time transport rate control.</p></div>
+          <div class="card"><h3>Undo &amp; redo</h3><p>Reverse recent audio-buffer edits on the selected track. Up to eight audio edits per track are retained; project-wide history of track management and mixer changes is not provided.</p></div>
+        </div>
+        <div class="callout" style="margin-top:15px">Selection, looping, and the playhead are independent: selection defines a trim region, loop bounds define repeat playback, and the transport position controls where playback begins.</div>
+      </div>
+      <div class="footer"><span>Editing &amp; navigation</span><span>05 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">05 · Live visual feedback</p><h2>See the signal as it plays</h2><div class="rule"></div></div><p>The spectrogram is generated from incoming live samples during playback or recording—not from a static analysis of the selected file.</p></header>
+      <div class="content grid-2">
+        <div>
+          <div class="card"><h3>Live-feed spectrogram</h3><ul class="list-check"><li>Blank while idle; starts drawing only when a live source begins.</li><li>Samples come from the playback output feed or microphone recording input.</li><li>New frequency-spectrum columns are drawn continuously during active playback/recording.</li><li>Stereo channels are analyzed independently to avoid cancellation when channels are out of phase.</li><li>Video playback is visualized through its extracted audio signal; silent source audio correctly produces little or no visible energy.</li></ul></div>
+          <div class="card" style="margin-top:13px"><h3>Waveforms &amp; meters</h3><p>Track waveforms show precomputed min/max peaks for the clip. Peak/RMS meters and clipping indicators provide approximate track-level feedback during playback.</p></div>
+        </div>
+        <div>
+          <svg class="spectrum" viewBox="0 0 620 230" role="img" aria-label="Illustrative live spectrogram with frequency energy over time">
+            <defs><linearGradient id="bg2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#101c22"/><stop offset="1" stop-color="#090d12"/></linearGradient><linearGradient id="hot" x1="0" x2="1"><stop offset="0" stop-color="#796139"/><stop offset=".46" stop-color="#b5a15b"/><stop offset=".7" stop-color="#54a99d"/><stop offset="1" stop-color="#203c47"/></linearGradient></defs>
+            <rect width="620" height="230" fill="url(#bg2)"/>
+            <g stroke="#314047" stroke-width="1" opacity=".65"><path d="M0 46H620M0 92H620M0 138H620M0 184H620"/><path d="M103 0V230M206 0V230M309 0V230M412 0V230M515 0V230"/></g>
+            <g fill="url(#hot)" opacity=".9">
+              <path d="M0 173 Q35 153 72 169 T145 158 T216 168 T290 155 T363 171 T437 159 T510 164 T620 151 V230H0Z"/>
+              <path d="M0 128 Q30 116 62 126 T127 113 T192 125 T258 104 T323 120 T388 106 T453 119 T518 103 T620 112 V142 Q580 131 540 145 T460 138 T382 151 T310 135 T230 150 T158 136 T80 150 T0 144Z" opacity=".72"/>
+              <path d="M0 75 Q50 69 98 80 T197 65 T296 78 T394 61 T493 75 T620 59 V84 Q560 88 505 91 T400 86 T300 95 T200 84 T100 93 T0 91Z" opacity=".58"/>
+            </g>
+            <path d="M550 0V230" stroke="#f0d48a" stroke-width="2" opacity=".9"/>
+          </svg>
+          <p class="small" style="margin:8px 2px 13px">Illustrative artwork. The live spectrogram itself updates from audio captured by the application during playback or recording.</p>
+          <div class="callout warn">The track waveform is a visual overview prepared from clip samples; the spectrogram is different—it is the live spectrum of the signal currently flowing through playback or recording.</div>
+        </div>
+      </div>
+      <div class="footer"><span>Live analysis &amp; monitoring</span><span>06 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">06 · Audio toolset · edits &amp; tone</p><h2>35 tools for creative control</h2><div class="rule"></div></div><p>Select a tool, adjust its parameters, Preview the result, and Apply to render it into the track.</p></header>
+      <div class="content">
+        <div class="tools-grid">
+          <div class="tool"><b>Cut</b><span>Keep or delete a region defined as a percentage of the clip.</span></div>
+          <div class="tool"><b>Merge</b><span>Join a neighboring track with an optional crossfade.</span></div>
+          <div class="tool"><b>Fade In</b><span>Ramp the beginning of the clip up from silence.</span></div>
+          <div class="tool"><b>Fade Out</b><span>Ramp the end of the clip down to silence.</span></div>
+          <div class="tool"><b>Gain</b><span>Render sample-level gain adjustment in decibels.</span></div>
+          <div class="tool"><b>Normalize</b><span>Scale the clip peak to a chosen target level.</span></div>
+          <div class="tool"><b>Reverse</b><span>Reverse the sample order for backward playback.</span></div>
+          <div class="tool"><b>Speed</b><span>Resample audio to change speed and pitch together.</span></div>
+          <div class="tool"><b>Silence</b><span>Add configurable silent lead-in and tail.</span></div>
+          <div class="tool"><b>Low-Pass</b><span>Reduce high frequencies with cutoff and resonance controls.</span></div>
+          <div class="tool"><b>High-Pass</b><span>Reduce low frequencies with cutoff and resonance controls.</span></div>
+          <div class="tool"><b>Parametric EQ</b><span>Boost or cut a selected frequency band.</span></div>
+          <div class="tool"><b>DC Offset</b><span>Remove per-channel DC bias from the signal.</span></div>
+          <div class="tool"><b>Trim Silence</b><span>Remove quiet leading and trailing audio with edge padding.</span></div>
+          <div class="tool"><b>RMS Normalize</b><span>Target average level with a peak-safety ceiling.</span></div>
+          <div class="tool"><b>De-click</b><span>Repair isolated single-sample clicks by interpolation.</span></div>
+          <div class="tool"><b>Mono Downmix</b><span>Create a mono sum from a multichannel source.</span></div>
+          <div class="tool"><b>Swap Channels</b><span>Exchange the first two channels of multichannel audio.</span></div>
+          <div class="tool"><b>Pan</b><span>Render a stereo placement into audio (mono is promoted).</span></div>
+        </div>
+        <div class="callout warn" style="margin-top:12px">Tool application is destructive to the current track buffer, but up to eight audio edits per track can be undone. Preview is temporary; it does not commit the edit.</div>
+      </div>
+      <div class="footer"><span>Tool catalog · 1 of 2</span><span>07 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">07 · Audio toolset · dynamics &amp; motion</p><h2>Shape space, texture, and impact</h2><div class="rule"></div></div><p>The remaining tools focus on dynamics, modulation, stereo image, and saturation.</p></header>
+      <div class="content">
+        <div class="tools-grid">
+          <div class="tool"><b>Compressor</b><span>Reduce dynamic range above a threshold, with attack, release, ratio, and makeup controls.</span></div>
+          <div class="tool"><b>Limiter</b><span>Control peaks to a ceiling with release smoothing.</span></div>
+          <div class="tool"><b>Noise Gate</b><span>Attenuate signal below a threshold with attack/release behavior.</span></div>
+          <div class="tool"><b>Echo</b><span>Add feedback delay with delay time, feedback, and mix controls.</span></div>
+          <div class="tool"><b>Reverb</b><span>Add a room-like reverberant tail with room, damping, and mix controls.</span></div>
+          <div class="tool"><b>Distortion</b><span>Apply tanh saturation with drive and wet/dry mix.</span></div>
+          <div class="tool"><b>Tremolo</b><span>Modulate amplitude periodically using rate and depth.</span></div>
+          <div class="tool"><b>Bit Crusher</b><span>Reduce bit depth and sample-hold rate for lo-fi grit.</span></div>
+          <div class="tool"><b>Chorus</b><span>Blend a modulated short delay for width and movement.</span></div>
+          <div class="tool"><b>Flanger</b><span>Create a short sweeping comb-filter effect.</span></div>
+          <div class="tool"><b>Stereo Width</b><span>Adjust stereo side energy while retaining the center.</span></div>
+          <div class="tool"><b>Bass Focus</b><span>Shape low-frequency energy with a bass shelf-style process.</span></div>
+          <div class="tool"><b>Presence Lift</b><span>Emphasize or reduce upper-mid presence.</span></div>
+          <div class="tool"><b>Transient Shaper</b><span>Emphasize or soften attacks relative to the sustain envelope.</span></div>
+          <div class="tool"><b>Auto Pan</b><span>Move stereo position rhythmically over time.</span></div>
+          <div class="tool"><b>Soft Clip</b><span>Add normalized soft saturation with adjustable drive and mix.</span></div>
+        </div>
+        <div class="grid-2" style="margin-top:13px">
+          <div class="card"><h3>Preview before committing</h3><p>Preview renders the selected operation and auditions its result without replacing the track. Apply commits the rendered buffer. For two-track operations such as Merge, the neighboring track supplies the secondary audio.</p></div>
+          <div class="card"><h3>Two kinds of level control</h3><p>Track Gain and Pan remain adjustable mixer settings. Gain, Pan, EQ, dynamics, and other entries in the toolset are audio edits that render into the track buffer.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>Tool catalog · 2 of 2</span><span>08 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">08 · Sound design &amp; FX</p><h2>A library that grows with the project</h2><div class="rule"></div></div><p>Quickly add a procedural starting point, organize personal audio, or source a licensed sound from an external archive.</p></header>
+      <div class="content grid-2">
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>100 built-in procedural effects</h3><p>Generated sounds are available without downloading assets, organized into nine themed preset families and a set of focused utility sounds.</p><ul class="list-dot"><li>Haunted winds &amp; ghostly voices</li><li>Chimes, bells, strings &amp; dark drones</li><li>Cinematic impacts, textures &amp; static</li><li>Creatures, whispers, risers &amp; transitions</li><li>Noise, atmosphere, synth, metal, foley and more</li></ul><p class="small">Double-click a library entry to add it as a new track. Select an entry as a bridge sound for Mend Join.</p></div>
+          <div class="card"><h3>Local FX library</h3><p>Import supported audio into a chosen category, create category folders, filter the library, and track the user-clip count. The library supports up to 500 user audio clips.</p></div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>HTTPS downloads &amp; sound archives</h3><p>Download an audio file from an HTTPS URL (maximum 200 MB per file); downloads are cached locally. Browse links to public sound archives from inside the library.</p><div class="callout warn">A link is not a licence. Review the asset’s terms and permissions before distributing or using it commercially.</div></div>
+          <div class="card"><h3>Mend Join</h3><p>Join the selected track with its neighbor and blend a chosen library sound across the splice. If the selected track is last, the previous track is used as the first segment. The operation replaces the first track’s audio and removes the second track.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>FX library &amp; sound design</span><span>09 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">09 · Projects &amp; continuity</p><h2>Keep sessions portable</h2><div class="rule"></div></div><p>Named project files preserve the editable session context; recovery snapshots help restore recent work after an interruption.</p></header>
+      <div class="content">
+        <div class="grid-3">
+          <div class="card"><h3>Save a project</h3><p>Save creates a <strong>.bssa</strong> archive with each track’s current audio plus track name/order, offset, gain, pan, mute/solo state, and source references.</p></div>
+          <div class="card"><h3>Open a project or media</h3><p>Open accepts a saved project or audio/video files. Opening a project replaces the tracks currently in the workspace; save a separate copy first if needed.</p></div>
+          <div class="card"><h3>Autosave recovery</h3><p>When tracks exist and the app is not busy, a recovery snapshot is periodically saved (about every two minutes). At startup, the app offers recovery if a snapshot is available.</p></div>
+        </div>
+        <div class="flow" style="margin-top:24px">
+          <div class="flow-step"><b>Work</b><span>Import, edit, arrange and mix.</span></div>
+          <div class="flow-step"><b>Save often</b><span>Write a named .bssa project.</span></div>
+          <div class="flow-step"><b>Recover if needed</b><span>Use the startup recovery prompt for the latest snapshot.</span></div>
+          <div class="flow-step"><b>Reopen &amp; refine</b><span>Track audio and mixer settings return from the archive.</span></div>
+          <div class="flow-step"><b>Deliver</b><span>Export audio or mux with the original video source.</span></div>
+        </div>
+        <div class="callout warn">The video file is referenced, not embedded. Keep the original video available for video export. Autosave is a recovery snapshot, not a replacement for saving named project files; recent work since the last snapshot can be lost.</div>
+      </div>
+      <div class="footer"><span>Project files &amp; recovery</span><span>10 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">10 · Mix &amp; export</p><h2>From arrangement to deliverable</h2><div class="rule"></div></div><p>Playback, bounce, and export use the current mix of audible tracks and their arrangement settings.</p></header>
+      <div class="content">
+        <div class="grid-3" style="margin-bottom:14px">
+          <div class="card"><h3>Mix engine</h3><p>Combines included tracks at their project offsets, applies gain and pan, honors mute/solo selection, and converts tracks to a common mix format. The final mix is scaled down if its summed peak would clip.</p></div>
+          <div class="card"><h3>Bounce Mix</h3><p>Adds a rendered version of the current project mix as a new track, ready for further editing or review.</p></div>
+          <div class="card"><h3>Export Video</h3><p>Muxes the current project mix with the source picture from the selected video track. Choose MP4 or Matroska output.</p></div>
+        </div>
+        <table class="table" aria-label="Supported import and export formats">
+          <thead><tr><th>Task</th><th>Formats</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Audio import</td><td>WAV, MP3, AIF/AIFF, M4A, AAC, WMA; additional formats via FFmpeg</td><td>FLAC, OGG, Opus and other FFmpeg-routed formats require FFmpeg.</td></tr>
+            <tr><td>Video import</td><td>MP4, M4V and other listed video formats</td><td>Windows Media Foundation decodes supported MP4/M4V; other codecs/formats may require FFmpeg.</td></tr>
+            <tr><td>Audio export</td><td>WAV, MP3, FLAC, OGG, Opus, AAC/M4A</td><td>MP3 uses Windows Media Foundation. Other listed compressed formats require FFmpeg.</td></tr>
+            <tr><td>MP3 quality</td><td>128, 192, or 256 kbps</td><td>Bitrate selection applies to MP3 export only.</td></tr>
+            <tr><td>Video export</td><td>MP4 or Matroska</td><td>FFmpeg required; source video must remain available.</td></tr>
+          </tbody>
+        </table>
+        <p class="small" style="margin-top:10px">Codec compatibility depends on the system and the specific file. FFmpeg may be placed in an <code>ffmpeg</code> folder beside the application executable or made available on PATH.</p>
+      </div>
+      <div class="footer"><span>Mixdown, bounce &amp; delivery</span><span>11 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">11 · Voice, operations &amp; diagnostics</p><h2>Helpful controls around the audio</h2><div class="rule"></div></div><p>Optional voice access, operation feedback, lightweight diagnostics, and managed cache/temp storage support the creative workflow.</p></header>
+      <div class="content grid-2">
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>Optional English (UK) voice commands</h3><p>Enable listening with the Voice button. Supported phrases cover common folders, import, playback, recording, track selection and management, effect actions, undo/redo, FX, mend, bounce, and export.</p><p class="small">Requires a microphone and an installed Windows English (UK) speech recognizer. Listening starts only when enabled. Examples: “play”, “open downloads”, “load song [track name]”, “mute track”, “export audio”, “stop listening”.</p></div>
+          <div class="card"><h3>Keyboard shortcuts</h3><table class="table"><tbody><tr><td>Space</td><td>Play or resume</td></tr><tr><td>Escape</td><td>Cancel cancellable work</td></tr><tr><td>Ctrl + O / S</td><td>Open / save project</td></tr><tr><td>Ctrl + Z / Y</td><td>Undo / redo selected track audio edit</td></tr></tbody></table></div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>Status &amp; performance diagnostics</h3><p>Status messages report current work and errors. The optional Diag display samples process CPU, private memory, and managed memory. It is an informational display, not a full profiler.</p><p>Cache controls report storage use and clear downloaded cache files after confirmation. The busy indicator and Cancel button appear during applicable long operations.</p></div>
+          <div class="card"><h3>Application data &amp; startup audio</h3><p>Logs, cache, user FX, and temporary files are stored under <code>%LOCALAPPDATA%\BlackStarSwissAudio</code>. Cache pruning and process-specific temporary folders help manage storage.</p><p>An optional WAV placed in the project Assets folder can play before the main window appears. Missing or unplayable startup audio does not prevent launch.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>Accessibility, diagnostics &amp; operations</span><span>12 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">12 · Platform &amp; practical requirements</p><h2>Windows desktop, familiar tools</h2><div class="rule"></div></div><p>Use the application on a Windows machine with codecs and resources appropriate to the session’s media.</p></header>
+      <div class="content grid-2">
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>Platform</h3><ul class="list-check"><li>Windows 10/11, x64 desktop application.</li><li>Built on .NET 10 for Windows using WPF.</li><li>Windows Media Foundation is used for supported media decoding and MP3 encoding.</li><li>FFmpeg is an optional companion dependency for additional format support and video export.</li></ul></div>
+          <div class="card"><h3>Devices &amp; permissions</h3><p>Recording requires a working Windows input device and appropriate system permissions. Input device selection and routing are configured in Windows. Voice recognition additionally needs a microphone and installed English (UK) recognizer.</p></div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:13px"><h3>Memory considerations</h3><p>Audio is held as floating-point PCM in memory. Stereo 44.1 kHz audio uses approximately 21 MB per minute before additional working copies. Effects and mixdowns may need extra memory.</p><p class="small">Long tracks and large sessions can require substantial RAM. Leave room for temporary buffers and exported files.</p></div>
+          <div class="card"><h3>File &amp; codec readiness</h3><p>Codec support varies by Windows installation and input file. For additional codecs or video export, install FFmpeg as described in the user guide and keep source files available.</p><p>For licensed sound assets, verify the specific source’s permissions and terms before redistribution.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>Requirements &amp; readiness</span><span>13 / 14</span></div>
+    </section>
+
+    <section class="slide">
+      <header class="section-head"><div><p class="eyebrow">13 · Capability summary</p><h2>A practical studio for the full session</h2><div class="rule"></div></div><p>Black Star Swiss Audio brings core multitrack production tasks together in one desktop workspace.</p></header>
+      <div class="content">
+        <div class="two-col">
+          <div>
+            <h3>What it enables</h3>
+            <ul class="list-check"><li>Import and arrange multiple audio sources and supported video-derived audio.</li><li>Control track placement, level, pan, mute, and solo.</li><li>Shape sound with 35 built-in editing, tone, dynamic, modulation, and stereo tools.</li><li>Audition effects, render edits, and step back through up to eight audio edits per track.</li><li>Record microphone input and visualize playback or recording through a live-feed spectrogram.</li><li>Save a project archive, recover from an autosave snapshot, bounce a mix, and export audio/video.</li><li>Extend the FX library with personal audio or cached HTTPS downloads.</li></ul>
+          </div>
+          <div>
+            <h3>Important current boundaries</h3>
+            <ul class="list-dot"><li>Processing is rendered into audio; there is no editable non-destructive effect chain.</li><li>Audio processing and mixdowns use in-memory buffers; no chunked/off-disk editing pipeline is available.</li><li>Speed edits change pitch as well as duration; pitch-preserving time stretch is not available.</li><li>Track placement uses numeric offsets; no clip dragging or dedicated reorder gesture.</li><li>Track meters are estimates, not a master loudness meter or inter-sample peak guarantee.</li><li>Video source media is referenced, not embedded in the project archive.</li><li>Codec availability depends on Windows Media Foundation and/or FFmpeg.</li></ul>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:15px">Recommended workflow: save a named project regularly, preview unfamiliar processing, monitor levels after layering, keep video sources available until export completes, and leave adequate memory for long sessions.</div>
+      </div>
+      <div class="footer"><span>Product summary</span><span>14 / 14</span></div>
+    </section>
+  </main>
+</body>
+</html>

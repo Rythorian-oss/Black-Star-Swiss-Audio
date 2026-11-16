@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <StartupObject>BlackStarSwissAudio.App</StartupObject>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>BlackStarSwissAudio</AssemblyName>
+    <RootNamespace>BlackStarSwissAudio</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>Black Star Swiss Audio</Product>
+    <ApplicationIcon>Assets\BlackStarSwissAudio.ico</ApplicationIcon>
+    <ServerGarbageCollector>false</ServerGarbageCollector>
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    <TieredPGO>true</TieredPGO>
+    <TieredCompilation>true</TieredCompilation>
+    <Deterministic>true</Deterministic>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="System.Speech" Version="10.0.15" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\BlackStarSwissAudio.ico" />
+    <None Update="Assets\**\*.wav" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\BssaDiagnostics\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SpectrogramCheckTemp\SpectrogramCheck.csproj" />
+  </ItemGroup>
+</Project>
