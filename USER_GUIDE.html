@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical guide to Black Star Swiss Audio: setup, editing, effects, projects, export, and limitations.">
+  <title>Black Star Swiss Audio — User Guide</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0c0d10;
+      --panel: #17191f;
+      --panel-2: #20232b;
+      --text: #eee9dc;
+      --muted: #b4b0a5;
+      --gold: #d3ad60;
+      --line: #51452c;
+      --red: #ff7777;
+      --teal: #73d5c6;
+      --link: #f0cb78;
+      --shadow: 0 12px 32px #0006;
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: radial-gradient(ellipse at top, #252019 0, var(--bg) 42rem); }
+    a { color: var(--link); }
+    a:hover, a:focus-visible { color: white; }
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+    header { padding: 3.5rem 1.25rem 2.5rem; border-bottom: 1px solid var(--line); text-align: center; }
+    header .eyebrow { color: var(--gold); letter-spacing: .18em; text-transform: uppercase; font-size: .78rem; font-weight: 700; }
+    h1 { margin: .4rem auto; max-width: 900px; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.1; color: var(--gold); }
+    header p { max-width: 760px; margin: 1rem auto 0; color: var(--muted); font-size: 1.08rem; }
+    .layout { width: min(1200px, 100%); margin: 0 auto; padding: 1.4rem; display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 1.4rem; align-items: start; }
+    nav { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow: auto; padding: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+    nav strong { display: block; color: var(--gold); margin-bottom: .5rem; }
+    nav ol { padding-left: 1.2rem; margin: 0; }
+    nav li { margin: .25rem 0; font-size: .9rem; }
+    nav a { text-decoration: none; color: var(--muted); }
+    nav a:hover, nav a:focus-visible { color: var(--link); text-decoration: underline; }
+    main { min-width: 0; }
+    section, .callout { scroll-margin-top: 1rem; margin: 0 0 1.25rem; padding: clamp(1rem, 3vw, 1.65rem); background: var(--panel); border: 1px solid #ffffff12; border-radius: 12px; box-shadow: var(--shadow); }
+    h2 { margin: 0 0 .8rem; color: var(--gold); font-size: 1.55rem; line-height: 1.25; }
+    h3 { margin: 1.35rem 0 .35rem; color: var(--teal); font-size: 1.12rem; }
+    p { margin: .55rem 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: .25rem 0; }
+    .lead { font-size: 1.08rem; }
+    .badge { display: inline-block; padding: .12rem .55rem; border-radius: 100px; color: #14110a; background: var(--gold); font-size: .78rem; font-weight: 700; vertical-align: .12rem; }
+    .badge.info { color: #061512; background: var(--teal); }
+    .badge.warn { color: #260808; background: var(--red); }
+    .grid-2, .grid-3 { display: grid; gap: .8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card { padding: .9rem; border: 1px solid #ffffff12; border-radius: 9px; background: var(--panel-2); }
+    .card h3 { margin-top: 0; }
+    .diagram { overflow-x: auto; margin: 1rem 0; padding: .6rem; border: 1px solid #ffffff14; border-radius: 9px; background: #101115; }
+    svg { display: block; width: 100%; height: auto; min-width: 600px; }
+    svg text { font-family: "Segoe UI", Arial, sans-serif; fill: var(--text); }
+    svg .box { fill: #20232b; stroke: var(--gold); stroke-width: 2; }
+    svg .arrow { stroke: var(--teal); stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    .table-wrap { overflow-x: auto; margin: .9rem 0; }
+    table { width: 100%; border-collapse: collapse; min-width: 550px; font-size: .94rem; }
+    th, td { padding: .62rem .7rem; border: 1px solid #ffffff1b; text-align: left; vertical-align: top; }
+    th { color: var(--gold); background: #25231e; }
+    tbody tr:nth-child(even) { background: #ffffff05; }
+    code, kbd { font-family: Consolas, "Courier New", monospace; }
+    code { color: #f0d99f; overflow-wrap: anywhere; }
+    kbd { padding: .1rem .35rem; border: 1px solid #8b826f; border-bottom-width: 2px; border-radius: 4px; background: #25262b; color: var(--text); white-space: nowrap; }
+    .callout { border-left: 4px solid var(--teal); }
+    .callout.warning { border-left-color: var(--red); }
+    .chart { display: grid; grid-template-columns: 6rem 1fr 8rem; gap: .55rem .8rem; align-items: center; margin: 1rem 0; }
+    .bar-track { height: 1.05rem; border-radius: 99px; overflow: hidden; background: #35363c; }
+    .bar { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--teal), var(--gold)); }
+    .chart small { color: var(--muted); }
+    .workspace { display: grid; grid-template-columns: 1fr 2.3fr 1.2fr; gap: .45rem; }
+    .workspace div { min-height: 110px; padding: .85rem; border: 1px solid var(--line); border-radius: 7px; background: var(--panel-2); }
+    .workspace b { display: block; margin-bottom: .3rem; color: var(--gold); }
+    .muted { color: var(--muted); }
+    footer { padding: 2rem 1rem; color: var(--muted); text-align: center; }
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: static; max-height: none; }
+      nav ol { columns: 2; }
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .layout { padding: .75rem; }
+      nav ol { columns: 1; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .workspace { grid-template-columns: 1fr; }
+      .workspace div { min-height: 0; }
+      .chart { grid-template-columns: 4.5rem 1fr; }
+      .chart small { grid-column: 2; }
+    }
+    @media print {
+      :root { color-scheme: light; --bg: white; --panel: white; --panel-2: #f4f4f4; --text: #111; --muted: #444; --gold: #76520a; --line: #aaa; --teal: #14796c; }
+      body { background: white; }
+      nav { position: static; box-shadow: none; }
+      section, .callout { box-shadow: none; break-inside: avoid; }
+      a { color: #222; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">A practical guide</div>
+    <h1>Black Star Swiss Audio</h1>
+    <p>Import, arrange, edit, mix, save, and export audio with confidence. This guide explains the interface, workflow, built-in tools, project recovery, and current limitations.</p>
+  </header>
+
+  <div class="layout">
+    <nav aria-label="Guide contents">
+      <strong>On this page</strong>
+      <ol>
+        <li><a href="#quick-start">Quick start</a></li>
+        <li><a href="#workspace">Workspace</a></li>
+        <li><a href="#import">Import and tracks</a></li>
+        <li><a href="#timeline">Timeline and transport</a></li>
+        <li><a href="#track-controls">Track controls and meters</a></li>
+        <li><a href="#effects">Effects and editing</a></li>
+        <li><a href="#recording-fx">Recording and FX library</a></li>
+        <li><a href="#projects">Projects and recovery</a></li>
+        <li><a href="#mix-export">Mixing and export</a></li>
+        <li><a href="#preferences">Themes and diagnostics</a></li>
+        <li><a href="#shortcuts">Keyboard shortcuts</a></li>
+        <li><a href="#formats">Formats and requirements</a></li>
+        <li><a href="#limitations">Limitations and tips</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="quick-start">
+        <h2>1. Quick start</h2>
+        <ol>
+          <li>Click <b>Import</b>, or drag audio/video files from File Explorer into the window.</li>
+          <li>Set each track's <b>Start s</b>, <b>Gain</b>, and <b>Pan</b>. Use <b>M</b> to mute and <b>S</b> to solo.</li>
+          <li>Select a track and a tool. Adjust the tool parameters, then choose <b>Preview</b> or <b>Apply</b>.</li>
+          <li>Press <b>Play</b> or <kbd>Space</kbd>. Seek, zoom, scroll, or set a loop as needed.</li>
+          <li>Use <b>Save</b> to save a project. Choose <b>Export Audio</b> for a mix file.</li>
+        </ol>
+        <div class="diagram" role="img" aria-label="Workflow from importing or recording, through arranging and editing, to listening and saving or exporting">
+          <svg viewBox="0 0 900 145" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#73d5c6"/></marker></defs>
+            <rect class="box" x="12" y="42" width="155" height="58" rx="10"/><text x="89" y="67" text-anchor="middle">Import / Record</text><text x="89" y="87" text-anchor="middle" font-size="12">Create tracks</text>
+            <path class="arrow" d="M168 71 H205"/>
+            <rect class="box" x="210" y="42" width="155" height="58" rx="10"/><text x="287" y="67" text-anchor="middle">Arrange</text><text x="287" y="87" text-anchor="middle" font-size="12">Offset · gain · pan</text>
+            <path class="arrow" d="M366 71 H403"/>
+            <rect class="box" x="408" y="42" width="155" height="58" rx="10"/><text x="485" y="67" text-anchor="middle">Edit / Preview</text><text x="485" y="87" text-anchor="middle" font-size="12">Tools · trim · speed</text>
+            <path class="arrow" d="M564 71 H601"/>
+            <rect class="box" x="606" y="42" width="125" height="58" rx="10"/><text x="668" y="67" text-anchor="middle">Listen</text><text x="668" y="87" text-anchor="middle" font-size="12">Meters · loop</text>
+            <path class="arrow" d="M732 71 H767"/>
+            <rect class="box" x="772" y="42" width="116" height="58" rx="10"/><text x="830" y="67" text-anchor="middle">Save / Export</text><text x="830" y="87" text-anchor="middle" font-size="12">Project · mix</text>
+          </svg>
+        </div>
+      </section>
+
+      <section id="workspace">
+        <h2>2. The workspace</h2>
+        <div class="workspace" aria-label="Three panel application workspace">
+          <div><b>Tools</b>Choose an effect or edit operation; drag a tool onto a track to select it for that track.</div>
+          <div><b>Timeline</b>Time ruler, zoom and scroll controls, and a lane for each audio track.</div>
+          <div><b>Parameters / FX</b>Effect settings, preview/apply, trim and loop times, speed, and sound effects.</div>
+        </div>
+        <div class="grid-2">
+          <div class="card"><h3>Top bar</h3><p>Import or open media/projects, save projects, record, play/pause/stop, playback position and seeking, loop toggle, input/recording level, bounce, and audio/video export.</p></div>
+          <div class="card"><h3>Status bar</h3><p>Shows status and errors, a busy indicator during long operations, and optional memory/track diagnostics.</p></div>
+        </div>
+        <p>Drag the vertical splitters to resize the side panels. Use the <b>Tools</b> and <b>FX</b> toggles above the timeline to collapse or restore them. The interface also includes dark/light palettes and four accent colors.</p>
+      </section>
+
+      <section id="import">
+        <h2>3. Importing and organizing tracks</h2>
+        <h3>Import media</h3>
+        <p>Click <b>Import</b>, choose audio/video files with <b>Open</b>, or drag files into the application. Files are loaded one at a time. The status area identifies the current file and its position in the batch; failed files are summarized at the end while other files continue. The <b>Open</b> dialog also accepts saved <code>.bssa</code> projects (one project at a time).</p>
+        <p><b>Cancel</b> cancels the import batch as a whole; you cannot cancel only one file. Each imported file becomes a track. For a video file, the app extracts its audio and remembers the source video path for video export.</p>
+        <h3>Track position and order</h3>
+        <p>Tracks are added in import/add order. Use the <b>Start s</b> field to set a clip's start time from the beginning of the project. A value of 0 starts immediately; a later value inserts silence before the clip. Project duration ends at the end of the latest track.</p>
+        <div class="callout"><b>Tip:</b> There is no clip-drag repositioning or dedicated track-reordering gesture. Use the offset field to place a clip in time.</div>
+      </section>
+
+      <section id="timeline">
+        <h2>4. Timeline, selection, and transport</h2>
+        <div class="grid-3">
+          <div class="card"><h3>Zoom</h3><p>The timeline zoom slider ranges from 1× to 16×. <b>Fit</b> returns to a full-project view.</p></div>
+          <div class="card"><h3>Scroll</h3><p>The horizontal scroll slider pans across the project when zoomed in.</p></div>
+          <div class="card"><h3>Ruler and playhead</h3><p>Ruler tick spacing adapts to the view. A bright line marks playback position; a translucent overlay shows progress.</p></div>
+        </div>
+        <p>The spectrogram stays blank until playback or recording begins. It is built column by column from samples sent to the audio output during audio or video-track playback, or from the microphone input while recording; it does not display a precomputed image of the selected clip. Stereo channels are analyzed independently so opposite-phase audio remains visible.</p>
+        <h3>Time selection and trim</h3>
+        <p>Enter <b>Selection s</b> start/end times in seconds in the right panel. <b>Snap 0.1s</b> rounds values to tenths of a second. Click <b>Trim</b> to keep only that range from the selected track. Trimming changes the track audio, but does not automatically change its project offset.</p>
+        <h3>Playback and looping</h3>
+        <p>Use Play, Pause, Stop, or <kbd>Space</kbd>. The transport seek slider moves the playhead. For a loop, enter start/end times in <b>Loop s</b> and check <b>Loop</b>; the end must be later than the start and the interval must overlap audio. Uncheck Loop to stop repeating.</p>
+        <h3>Speed</h3>
+        <p>Select a track, choose a speed preset (0.5× to 4×), and click <b>Set speed</b>. This renders an edit: speed changes duration <em>and pitch</em>. It is not a real-time or pitch-preserving playback speed control.</p>
+      </section>
+
+      <section id="track-controls">
+        <h2>5. Track controls and meters</h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Control</th><th>Purpose</th><th>Range / behavior</th></tr></thead>
+          <tbody>
+            <tr><td>Gain</td><td>Track level in the mix</td><td>−30 dB to +12 dB; does not render into the track audio.</td></tr>
+            <tr><td>Pan</td><td>Position in the stereo mix</td><td>−1 left, 0 center, +1 right.</td></tr>
+            <tr><td>M</td><td>Mute the track</td><td>Muted tracks are omitted unless solo behavior selects other tracks.</td></tr>
+            <tr><td>S</td><td>Solo the track</td><td>If any track is soloed, only soloed tracks are mixed; solo takes precedence over mute.</td></tr>
+            <tr><td>Peak / RMS</td><td>View approximate track levels during playback</td><td>Includes track gain/pan estimate; CLIP appears above full scale.</td></tr>
+            <tr><td>Start s</td><td>Place the clip on the project timeline</td><td>Offset in seconds from project start.</td></tr>
+          </tbody>
+        </table></div>
+        <h3>Digital level reference</h3>
+        <p class="muted">The chart shows approximate signal amplitude at several digital peak levels. It is a reference, not a loudness target.</p>
+        <div class="chart" role="img" aria-label="Digital level chart: 0 dBFS equals amplitude 1.0; minus 6 dBFS 0.501; minus 12 dBFS 0.251; minus 20 dBFS 0.1">
+          <b>0 dBFS</b><div class="bar-track"><div class="bar" style="width:100%"></div></div><small>1.000 · full scale</small>
+          <b>−6 dBFS</b><div class="bar-track"><div class="bar" style="width:50.1%"></div></div><small>0.501 · headroom</small>
+          <b>−12 dBFS</b><div class="bar-track"><div class="bar" style="width:25.1%"></div></div><small>0.251 · headroom</small>
+          <b>−20 dBFS</b><div class="bar-track"><div class="bar" style="width:10%"></div></div><small>0.100 · quieter</small>
+        </div>
+        <p>Multiple tracks can sum together. The final mixer scales a mix down if its summed peak would clip. Track meters are estimates for the current playback window—not a master-bus loudness meter or a guarantee against inter-sample peaks.</p>
+      </section>
+
+      <section id="effects">
+        <h2>6. Effects, editing, and undo</h2>
+        <ol>
+          <li>Select a track, then select a tool in the left panel (or drag the tool onto a track).</li>
+          <li>Adjust parameters in the right panel.</li>
+          <li>Click <b>Preview</b> to audition a temporary rendered result without replacing the track, or <b>Apply</b> to commit it.</li>
+          <li>Use <b>Undo</b> and <b>Redo</b> to move through recent audio edits.</li>
+        </ol>
+        <div class="callout warning"><b>Effects are destructive renders.</b> There is no editable effect-chain list. To change an applied effect, undo it (if it remains in history) and apply again. Preview is temporary and is not stored as an effect state.</div>
+        <h3>Tool reference</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Tool</th><th>Function</th><th>Important detail</th></tr></thead>
+          <tbody>
+            <tr><td>Cut</td><td>Keep or delete a region.</td><td>Region uses percentages of the clip, not seconds.</td></tr>
+            <tr><td>Merge</td><td>Join this track to the next (or previous if last), with optional crossfade.</td><td>Requires two tracks; the other track is removed when applied.</td></tr>
+            <tr><td>Fade In / Fade Out</td><td>Ramp level at the beginning or end.</td><td>Set duration in seconds.</td></tr>
+            <tr><td>Gain / Normalize</td><td>Change sample gain / scale peak to a target level.</td><td>Gain tool edits audio; track Gain is a reversible mix setting.</td></tr>
+            <tr><td>Reverse / Speed</td><td>Reverse audio / resample to change speed.</td><td>Speed changes pitch as well as duration.</td></tr>
+            <tr><td>Silence</td><td>Add silence before and after the audio.</td><td>Set lead and tail durations.</td></tr>
+            <tr><td>Echo / Reverb</td><td>Add feedback delay / room-like reverb.</td><td>Parameters control delay, feedback, room, damping, and wet mix.</td></tr>
+            <tr><td>Low-Pass / High-Pass</td><td>Attenuate high / low frequencies.</td><td>Adjust cutoff frequency and Q.</td></tr>
+            <tr><td>Parametric EQ</td><td>Boost or cut a frequency band.</td><td>Adjust frequency, Q, and gain.</td></tr>
+            <tr><td>Compressor / Limiter / Noise Gate</td><td>Control dynamic range, peaks, or low-level signal.</td><td>Threshold and timing controls vary by tool.</td></tr>
+            <tr><td>Distortion / Tremolo</td><td>Add saturation / periodic amplitude modulation.</td><td>Adjust drive/mix or rate/depth.</td></tr>
+            <tr><td>Pan</td><td>Render stereo placement into audio.</td><td>Prefer track Pan when you want a reversible mix adjustment.</td></tr>
+          </tbody>
+        </table></div>
+        <p><b>Undo history:</b> up to eight audio-buffer edits are kept per track. The track panel shows the history count. It is not a complete history of track creation/removal, mixer-setting changes, project operations, or all interface actions.</p>
+      </section>
+
+      <section id="recording-fx">
+        <h2>7. Recording and sound effects</h2>
+        <h3>Record audio</h3>
+        <ol><li>Connect and select the Windows recording device in system audio settings.</li><li>Press the red Record button to start; the level and recording status update.</li><li>Press Record again to finish. The recording is added as a new track.</li></ol>
+        <p>Recording requires a working Windows input device and appropriate permissions. Device selection and routing are configured outside the application.</p>
+        <h3>FX library</h3>
+        <ul>
+          <li>Double-click one of the 19 built-in procedural sounds to add it as a new track. Categories include noise, atmosphere, synth, cinematic, metal, and foley.</li>
+          <li>Enter an HTTPS audio-file URL and choose <b>Get</b> to download and import it. Downloads are limited to 200 MB and cached locally.</li>
+          <li>Archive links open in your browser. Review each asset's licence before sharing or redistributing it; links do not grant rights.</li>
+        </ul>
+      </section>
+
+      <section id="projects">
+        <h2>8. Saving, opening, and recovery</h2>
+        <ul>
+          <li><b>Save</b> creates a <code>.bssa</code> archive. It embeds each track's current audio and saves track name/order, offset, gain, pan, mute/solo state, and source references.</li>
+          <li><b>Open</b> replaces the tracks currently in the workspace. Save the current project first if you need to keep it.</li>
+          <li>Autosave runs about every two minutes when tracks exist and the app is not busy. At startup, the app offers recovery if an autosave is available. You can also choose <b>Recover</b>.</li>
+          <li>Autosave is a recovery snapshot, not a named project backup. Save named project files regularly.</li>
+          <li>The video file itself is not embedded in a project. Keep the referenced source video available if you plan to export video later; the project's audio remains embedded.</li>
+        </ul>
+      </section>
+
+      <section id="mix-export">
+        <h2>9. Mixing and exporting</h2>
+        <div class="diagram" role="img" aria-label="Audio mix flow: track audio, offsets, gain and pan, mute and solo selection, format conversion, summing, clipping protection, and playback or export">
+          <svg viewBox="0 0 840 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#73d5c6"/></marker></defs>
+            <path class="arrow" marker-end="url(#arrow2)" d="M160 65 H225 M160 175 H225 M370 120 H430 M565 120 H625 M720 120 H780"/>
+            <rect class="box" x="15" y="35" width="145" height="60" rx="9"/><text x="87" y="60" text-anchor="middle">Track audio</text><text x="87" y="80" text-anchor="middle" font-size="12">+ project offset</text>
+            <rect class="box" x="15" y="145" width="145" height="60" rx="9"/><text x="87" y="170" text-anchor="middle">Mixer settings</text><text x="87" y="190" text-anchor="middle" font-size="12">gain · pan · mute/solo</text>
+            <rect class="box" x="230" y="90" width="140" height="60" rx="9"/><text x="300" y="115" text-anchor="middle">Convert and mix</text><text x="300" y="135" text-anchor="middle" font-size="12">sum included tracks</text>
+            <rect class="box" x="435" y="90" width="130" height="60" rx="9"/><text x="500" y="115" text-anchor="middle">Peak check</text><text x="500" y="135" text-anchor="middle" font-size="12">scale if needed</text>
+            <rect class="box" x="630" y="90" width="190" height="60" rx="9"/><text x="725" y="115" text-anchor="middle">Listen / Bounce / Export</text><text x="725" y="135" text-anchor="middle" font-size="12">current project mix</text>
+          </svg>
+        </div>
+        <ul>
+          <li><b>Bounce Mix</b> adds the current mixed result as a new track, reflecting track offsets and mixer settings.</li>
+          <li><b>Export Audio</b> renders the current project mix. A preflight dialog shows duration, sample rate, channel count, and approximate PCM WAV size.</li>
+          <li>For MP3, select 128, 192, or 256 kbps in the right panel. The bitrate setting does not affect WAV or other formats.</li>
+          <li><b>Export Video</b> muxes the current project mix with the source video associated with the selected video track. Choose MP4 or Matroska output.</li>
+          <li>FFmpeg is required for video export, video formats not supported by Windows Media Foundation, and FLAC, OGG, Opus, and AAC/M4A export. MP3 encoding uses Windows Media Foundation.</li>
+        </ul>
+        <p>Long operations show a busy indicator and a Cancel control when cancellation is supported. Progress is not reported as a precise percentage for every operation.</p>
+      </section>
+
+      <section id="preferences">
+        <h2>10. Themes, accessibility, cache, and diagnostics</h2>
+        <div class="grid-2">
+          <div class="card"><h3>Appearance</h3><p>Check <b>Light</b> to switch palettes. Select Gold, Teal, Violet, or Blue for the accent. Timeline zoom changes horizontal time scale, not text size.</p></div>
+          <div class="card"><h3>Keyboard and focus</h3><p>Standard Tab navigation, visible keyboard focus on key controls, accessible names for icon-only controls, and the shortcuts below are available. There is no separate font scaling option.</p></div>
+          <div class="card"><h3>Diagnostics</h3><p>Enable <b>Diag</b> to display process working-set memory, managed memory, and track count. This is informational, not a profiler.</p></div>
+          <div class="card"><h3>Cache and temporary files</h3><p><b>Cache</b> reports cache/temp usage. <b>Clear</b> asks before removing downloaded cache files; loaded tracks and partial active downloads are unaffected.</p></div>
+        </div>
+        <p>Logs, cache, and temporary files are under <code>%LOCALAPPDATA%\BlackStarSwissAudio</code>. The file cache is pruned by age/size. Temporary working files are cleaned during application startup and shutdown.</p>
+      </section>
+
+      <section id="shortcuts">
+        <h2>11. Keyboard shortcuts</h2>
+        <div class="table-wrap"><table><thead><tr><th>Shortcut</th><th>Action</th></tr></thead><tbody>
+          <tr><td><kbd>Space</kbd></td><td>Play or resume playback.</td></tr>
+          <tr><td><kbd>Escape</kbd></td><td>Cancel the current cancellable operation.</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>Save project.</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>O</kbd></td><td>Open project.</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td><td>Undo selected track's last audio edit.</td></tr>
+          <tr><td><kbd>Ctrl</kbd> + <kbd>Y</kbd></td><td>Redo selected track's last undone audio edit.</td></tr>
+        </tbody></table></div>
+        <p class="muted">When a text field or slider has focus, Space and arrow keys may perform their normal control behavior.</p>
+      </section>
+
+      <section id="formats">
+        <h2>12. Supported media and requirements</h2>
+        <div class="table-wrap"><table><thead><tr><th>Task</th><th>Formats / requirements</th></tr></thead><tbody>
+          <tr><td>Built-in audio import</td><td>WAV, MP3, AIF/AIFF, M4A, AAC, WMA.</td></tr>
+          <tr><td>Additional audio import</td><td>FLAC, OGG, Opus, and other formats routed through FFmpeg require FFmpeg.</td></tr>
+          <tr><td>Video import</td><td>MP4 and M4V audio extraction uses Windows Media Foundation when the installed codecs support the file. Other listed video formats require FFmpeg.</td></tr>
+          <tr><td>Audio export</td><td>WAV and MP3; FLAC, OGG, Opus, and AAC/M4A use FFmpeg.</td></tr>
+          <tr><td>Video export</td><td>MP4 or Matroska; requires FFmpeg and the source video to remain available.</td></tr>
+          <tr><td>Desktop application</td><td>Windows 10/11 x64; .NET 10 Windows application.</td></tr>
+        </tbody></table></div>
+        <p>Codec support can vary with a particular file and machine. Install <code>ffmpeg.exe</code> in an <code>ffmpeg</code> folder beside the application executable or make it available on <code>PATH</code>. If a file fails, verify that it is valid and that the required decoder/encoder is installed.</p>
+      </section>
+
+      <section id="limitations">
+        <h2>13. Limitations and safe-working tips</h2>
+        <div class="callout warning"><b>Memory use:</b> Audio is held as floating-point PCM in memory. Stereo 44.1 kHz audio uses roughly 21 MB per minute before extra working copies. Very long tracks or large numbers of tracks can require substantial RAM.</div>
+        <ul>
+          <li><b>No chunked/off-disk editing yet:</b> effects, mixdowns, project loading, and exports use in-memory buffers.</li>
+          <li><b>No editable non-destructive effect chain:</b> applied effects render into track audio. Undo is limited to eight audio edits per track.</li>
+          <li><b>Speed changes pitch:</b> pitch-preserving time stretching is not available.</li>
+          <li><b>Basic selection:</b> trim uses numeric seconds; Cut uses clip percentages. There are no draggable trim handles or beat/tempo snapping.</li>
+          <li><b>Basic track layout:</b> tracks are added in order and positioned with Start s. There is no dedicated track reorder or clip-drag positioning tool.</li>
+          <li><b>Batch import cancellation:</b> a batch can be cancelled, but a single file cannot be cancelled independently. The busy indicator is not an exact progress percentage.</li>
+          <li><b>Meters are estimates:</b> they are not master loudness meters and do not guarantee against inter-sample peaks.</li>
+          <li><b>Autosave is periodic:</b> recent work since the last snapshot can be lost after a crash. Save named projects frequently.</li>
+          <li><b>Video is referenced, not embedded:</b> keep the source video available until video export is complete.</li>
+          <li><b>External codec/licence requirements:</b> FFmpeg and Windows codecs affect format support. Third-party FX licences remain your responsibility.</li>
+        </ul>
+        <h3>Good habits</h3>
+        <ol>
+          <li>Save a named <code>.bssa</code> project before applying a series of effects.</li>
+          <li>Preview unfamiliar effects and check levels after adjusting gain or layering tracks.</li>
+          <li>Save a copy before major edits; leave adequate memory and disk space for long audio.</li>
+          <li>Keep source video files in place until video export is finished.</li>
+          <li>Use the status message and logs under <code>%LOCALAPPDATA%\BlackStarSwissAudio\logs</code> to help diagnose errors.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+  <footer>Black Star Swiss Audio · User Guide</footer>
+</body>
+</html>
