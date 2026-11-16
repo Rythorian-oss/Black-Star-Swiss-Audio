@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 namespace BlackStarSwissAudio.Core;
 
 public readonly record struct MixItem(AudioBuffer Buf, double OffsetSec, float Gain, float Pan);
