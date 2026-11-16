@@ -1,3 +1,4 @@
+// Created by: Justin L. Ross | Waterville, Me. | Nov. 2026
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
